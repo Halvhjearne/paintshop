@@ -199,207 +199,196 @@ class HALV_painshop_dialog
 	moveingenabled=false;
 	class controls
 	{
+		class HALV_paintshop_textextframe: HP_RscFrame
+		{
+			idc = 6672;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.246975 * safezoneH + safezoneY;
+			w = 0.14445 * safezoneW;
+			h = 0.0330033 * safezoneH;
+		};
+		class HALV_paintshop_textureframe: HP_RscFrame
+		{
+			idc = 6670;
+			text = "Paintshop by Halv"; //--- ToDo: Localize;
+			x = 0.128556 * safezoneW + safezoneX;
+			y = 0.224972 * safezoneH + safezoneY;
+			w = 0.165086 * safezoneW;
+			h = 0.550055 * safezoneH;
+		};
+		class HALV_paintshop_texlistframe: HP_RscFrame
+		{
+			idc = 6671;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.290979 * safezoneH + safezoneY;
+			w = 0.14445 * safezoneW;
+			h = 0.462046 * safezoneH;
+		};
+		class HALV_paintshop_textureback: HP_IGUIBack
+		{
+			idc = 6669;
+			x = 0.128557 * safezoneW + safezoneX;
+			y = 0.224973 * safezoneH + safezoneY;
+			w = 0.165086 * safezoneW;
+			h = 0.550055 * safezoneH;
+		};
 		class HALV_paintshop_mainback: HP_IGUIBack
 		{
 			idc = -1;
-			x = 0.149225 * safezoneW + safezoneX;
-			y = 0.708947 * safezoneH + safezoneY;
-			w = 0.206338 * safezoneW;
-			h = 0.186953 * safezoneH;
+			x = 0.128556 * safezoneW + safezoneX;
+			y = 0.775027 * safezoneH + safezoneY;
+			w = 0.247629 * safezoneW;
+			h = 0.187019 * safezoneH;
 		};
 		class HALV_paintshop_mainframe: HP_RscFrame
 		{
 			idc = -1;
-//			text = "Paintshop by Halv"; //--- ToDo: Localize;
-			x = 0.149225 * safezoneW + safezoneX;
-			y = 0.708948 * safezoneH + safezoneY;
-			w = 0.206338 * safezoneW;
-			h = 0.186953 * safezoneH;
+			x = 0.128556 * safezoneW + safezoneX;
+			y = 0.775027 * safezoneH + safezoneY;
+			w = 0.247629 * safezoneW;
+			h = 0.187019 * safezoneH;
 		};
-		class HALV_paintshop_maintext: HP_RscStructuredText
+		class HALV_paintshop_maintxt: HP_RscStructuredText
 		{
 			idc = -1;
 			text = "Halv's Paintshop:"; //--- ToDo: Localize;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.719945 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.786029 * safezoneH + safezoneY;
+			w = 0.118656 * safezoneW;
+			h = 0.0330033 * safezoneH;
+			size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.1)";
 		};
-		class HALV_paintshop_maintextframe: HP_RscFrame
+		class HALV_paintshop_maintxtframe: HP_RscFrame
 		{
 			idc = -1;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.719945 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.786028 * safezoneH + safezoneY;
+			w = 0.118656 * safezoneW;
+			h = 0.0330033 * safezoneH;
+		};
+		class HALV_paintshop_mainvehframe: HP_RscFrame
+		{
+			idc = -1;
+			x = 0.267848 * safezoneW + safezoneX;
+			y = 0.786028 * safezoneH + safezoneY;
+			w = 0.0980199 * safezoneW;
+			h = 0.0330033 * safezoneH;
 		};
 		class HALV_paintshop_mainlistframe: HP_RscFrame
 		{
 			idc = -1;
-			x = 0.257553 * safezoneW + safezoneX;
-			y = 0.741939 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0989751 * safezoneH;
+			x = 0.267848 * safezoneW + safezoneX;
+			y = 0.830033 * safezoneH + safezoneY;
+			w = 0.0980199 * safezoneW;
+			h = 0.121012 * safezoneH;
 		};
-		class HALV_paintshop_checkboxframe: HP_RscFrame
+		class HALV_paintshop_mainswitchframe: HP_RscFrame
 		{
 			idc = -1;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.763934 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.830033 * safezoneH + safezoneY;
+			w = 0.118656 * safezoneW;
+			h = 0.0330033 * safezoneH;
 		};
-		class HALV_paintshop_priceframe: HP_RscFrame
-		{
-			idc = -1;
-			x = 0.257553 * safezoneW + safezoneX;
-			y = 0.719945 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0219945 * safezoneH;
-		};
-		class HALV_paintshop_sliderback: HP_IGUIBack
-		{
-			idc = 6667;
-			x = 0.355564 * safezoneW + safezoneX;
-			y = 0.708948 * safezoneH + safezoneY;
-			w = 0.392042 * safezoneW;
-			h = 0.186953 * safezoneH;
-		};
-		class HALV_paintshop_sliderframe: HP_RscFrame
-		{
-			text = "Paintshop by Halv"; //--- ToDo: Localize;
-			idc = 6668;
-			x = 0.355563 * safezoneW + safezoneX;
-			y = 0.708948 * safezoneH + safezoneY;
-			w = 0.392042 * safezoneW;
-			h = 0.186953 * safezoneH;
-		};
-		class HALV_paintshop_listback: HP_IGUIBack
-		{
-			idc = 6669;
-			x = 0.149225 * safezoneW + safezoneX;
-			y = 0.225069 * safezoneH + safezoneY;
-			w = 0.144437 * safezoneW;
-			h = 0.483878 * safezoneH;
-		};
-		class HALV_paintshop_listframe1: HP_RscFrame
-		{
-			idc = 6670;
-			text = "Paintshop by Halv"; //--- ToDo: Localize;
-			x = 0.149225 * safezoneW + safezoneX;
-			y = 0.225069 * safezoneH + safezoneY;
-			w = 0.144437 * safezoneW;
-			h = 0.483878 * safezoneH;
-		};
-		class HALV_paintshop_listtextframe: HP_RscFrame
-		{
-			idc = 6671;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.236066 * safezoneH + safezoneY;
-			w = 0.123803 * safezoneW;
-			h = 0.0329917 * safezoneH;
-		};
-		class HALV_paintshop_listframe2: HP_RscFrame
-		{
-			idc = 6672;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.269058 * safezoneH + safezoneY;
-			w = 0.123803 * safezoneW;
-			h = 0.428892 * safezoneH;
-		};
-		class HALV_paintshop_mainlistbox: HP_RscListBox
+		class HALV_paintshop_mainlist: HP_RscListBox
 		{
 			idc = 6673;
-			x = 0.257553 * safezoneW + safezoneX;
-			y = 0.741939 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0989751 * safezoneH;
+			x = 0.267848 * safezoneW + safezoneX;
+			y = 0.830033 * safezoneH + safezoneY;
+			w = 0.0980199 * safezoneW;
+			h = 0.121012 * safezoneH;
 			onLBDblClick = "call HALV_paintshop_onLBDblClick2;false";
 			onLBSelChanged = "call HALV_paintshop_onLBSelChanged2;false";
 		};
-		class HALV_paintshop_checkbox: HP_RscCheckbox
+		class HALV_paintshop_texlist: HP_RscListBox
+		{
+			idc = 6675;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.290979 * safezoneH + safezoneY;
+			w = 0.14445 * safezoneW;
+			h = 0.462046 * safezoneH;
+			onLBDblClick = "_this call HALV_paintshop_addtolist;false";
+			onLBSelChanged = "_this call HALV_paintshop_onLBSelChanged;false";
+		};
+		class HALV_paintshop_mainswitch: HP_RscCheckbox
 		{
 			idc = 6674;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.763934 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.830033 * safezoneH + safezoneY;
+			w = 0.118656 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			strings[] = {"Colour Mode"};
 			checked_strings[] = {"Texture Mode"};
 			onCheckBoxesSelChanged = "_this call HALV_paintshop_checkchanged;false";
 			tooltip = "Click to switch between texture list and colour sliders"; // Tooltip text
 		};
-		class HALV_paintshop_listbox: HP_RscListBox
-		{
-			idc = 6675;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.269058 * safezoneH + safezoneY;
-			w = 0.123803 * safezoneW;
-			h = 0.428892 * safezoneH;
-			onLBDblClick = "_this call HALV_paintshop_addtolist;false";
-			onLBSelChanged = "_this call HALV_paintshop_onLBSelChanged;false";
-		};
-		class HALV_paintshop_listtext: HP_RscStructuredText
+		class HALV_paintshop_textxt: HP_RscStructuredText
 		{
 			idc = 6676;
-			text = "Select Texture:"; //--- ToDo: Localize;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.236066 * safezoneH + safezoneY;
-			w = 0.123803 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			text = "Select Texture"; //--- ToDo: Localize;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.246975 * safezoneH + safezoneY;
+			w = 0.14445 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";
 		};
-
-		class HALV_paintshop_accept: HP_RscButton
+		class HALV_paintshop_mainbutacc: HP_RscButton
 		{
 			idc = 6677;
 			text = "Accept Selected"; //--- ToDo: Localize;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.851912 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.918042 * safezoneH + safezoneY;
+			w = 0.118656 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			action = "call HALV_paintshop_selected;";
 			tooltip = "Accept all colors / Textures on the list"; // Tooltip text
 		};
-		class HALV_paintshop_clearall: HP_RscStructuredText
+		class HALV_paintshop_mainvehtxt: HP_RscStructuredText
 		{
 			idc = 6678;
-			text = ""; //--- ToDo: Localize;
-			x = 0.257553 * safezoneW + safezoneX;
-			y = 0.851912 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
-			tooltip = "Current Vehicle"; // Tooltip text
+			text = ""; //CurrentVehicle
+			x = 0.267847 * safezoneW + safezoneX;
+			y = 0.786029 * safezoneH + safezoneY;
+			w = 0.0980199 * safezoneW;
+			h = 0.0330033 * safezoneH;
+			size = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+			tooltip = "Currently Painting"; // Tooltip text
 		};
-		class HALV_paintshop_addcurrent: HP_RscButton
+		class HALV_paintshop_mainbutadd: HP_RscButton
 		{
 			idc = 6679;
-			text = "Add to List"; //--- ToDo: Localize;
-			x = 0.159542 * safezoneW + safezoneX;
-			y = 0.807923 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			text = "== Add to list =>"; //--- ToDo: Localize;
+			x = 0.138874 * safezoneW + safezoneX;
+			y = 0.874037 * safezoneH + safezoneY;
+			w = 0.118656 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			action = "call HALV_paintshop_addtolist;";
 			tooltip = "Add Current Selected Color / Texture to the list"; // Tooltip text
 		};
-
-		class HALV_paintshop_price: HP_RscStructuredText
+		class HALV_paintshop_sliderback: HP_IGUIBack
 		{
-			idc = 6680;
-			text = "0 Crypto"; //--- ToDo: Localize;
-			x = 0.257553 * safezoneW + safezoneX;
-			y = 0.719945 * safezoneH + safezoneY;
-			w = 0.0876937 * safezoneW;
-			h = 0.0219945 * safezoneH;
+			idc = 6667;
+			x = 0.376185 * safezoneW + safezoneX;
+			y = 0.775027 * safezoneH + safezoneY;
+			w = 0.412715 * safezoneW;
+			h = 0.187019 * safezoneH;
 		};
-
+		class HALV_paintshop_sliderframe: HP_RscFrame
+		{
+			idc = 6668;
+			text = "Paintshop by Halv"; //--- ToDo: Localize;
+			x = 0.376185 * safezoneW + safezoneX;
+			y = 0.775027 * safezoneH + safezoneY;
+			w = 0.412715 * safezoneW;
+			h = 0.187019 * safezoneH;
+		};
 		class HALV_paintshop_slider1: HP_slider
 		{
 			idc = 6681;
-			x = 0.360722 * safezoneW + safezoneX;
-			y = 0.719945 * safezoneH + safezoneY;
-			w = 0.381725 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.381344 * safezoneW + safezoneX;
+			y = 0.786029 * safezoneH + safezoneY;
+			w = 0.397238 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			color[] = { 1, 0, 0, .5 }; 
 			coloractive[] = { 1, 0, 0, 1 };
 			tooltip = "Slide to increase / decrease red color"; // Tooltip text
@@ -407,10 +396,10 @@ class HALV_painshop_dialog
 		class HALV_paintshop_slider2: HP_slider
 		{
 			idc = 6682;
-			x = 0.360722 * safezoneW + safezoneX;
-			y = 0.763934 * safezoneH + safezoneY;
-			w = 0.381725 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.381344 * safezoneW + safezoneX;
+			y = 0.830033 * safezoneH + safezoneY;
+			w = 0.397238 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			color[] = { 0, 1, 0, .5 }; 
 			coloractive[] = { 0, 1, 0, 1 };
 			tooltip = "Slide to increase / decrease green color"; // Tooltip text
@@ -418,10 +407,10 @@ class HALV_painshop_dialog
 		class HALV_paintshop_slider3: HP_slider
 		{
 			idc = 6683;
-			x = 0.360722 * safezoneW + safezoneX;
-			y = 0.807923 * safezoneH + safezoneY;
-			w = 0.381725 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.381344 * safezoneW + safezoneX;
+			y = 0.874037 * safezoneH + safezoneY;
+			w = 0.397238 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			color[] = { 0, 0, 1, .5 }; 
 			coloractive[] = { 0, 0, 1, 1 };
 			tooltip = "Slide to increase / decrease blue color"; // Tooltip text
@@ -429,10 +418,10 @@ class HALV_painshop_dialog
 		class HALV_paintshop_slider4: HP_slider
 		{
 			idc = 6684;
-			x = 0.360722 * safezoneW + safezoneX;
-			y = 0.851912 * safezoneH + safezoneY;
-			w = 0.381725 * safezoneW;
-			h = 0.0329917 * safezoneH;
+			x = 0.381344 * safezoneW + safezoneX;
+			y = 0.918042 * safezoneH + safezoneY;
+			w = 0.397238 * safezoneW;
+			h = 0.0330033 * safezoneH;
 			color[] = { 1, 1, 1, .5 }; 
 			coloractive[] = { 1, 1, 1, 1 };
 			tooltip = "Slide to increase / decrease saturation"; // Tooltip text
