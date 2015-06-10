@@ -8,10 +8,11 @@
 HALV_paintshop_opendialog = {
 	if(isNull _this)exitWith{};
 	HALV_paintshop_vehicletopaint = _this;
-	_txt = (gettext (configFile >> "cfgvehicles" >> (typeOf HALV_paintshop_vehicletopaint) >> "displayName"));
-	if(count(getObjectTextures HALV_paintshop_vehicletopaint) < 1)exitWith{
+	_typeOf = (typeOf HALV_paintshop_vehicletopaint);
+	_txt = (gettext (configFile >> "cfgvehicles" >> _typeOf >> "displayName"));
+	if(count(getObjectTextures HALV_paintshop_vehicletopaint) < 1 || _typeOf == "ebike_epoch")exitWith{
 		titleText [format["%1 can not be painted ...",_txt],"PLAIN DOWN"];
-		diag_log format["%1 could not be painted ...",(typeOf HALV_paintshop_vehicletopaint)];
+		diag_log format["%1 could not be painted ...",_typeOf];
 	};
 	HALV_paintshop_color = [0,0,0,0];
 	HALV_paintshop_defaultsides = HALV_paintshop_vehicletopaint getVariable ["HALV_DEFAULTTEX",[]];
@@ -291,7 +292,7 @@ while{alive player}do{
 		if(player == vehicle player)then{
 			if !(Backpack player in ["","B_Parachute","B_O_Parachute_02_F","B_I_Parachute_02_F","B_B_Parachute_02_F"])then{
 				if(_HALV_panitshop_bagaction< 0)then{
-					_HALV_panitshop_bagaction = player addAction ["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint Backpack</t>", "addons\paintshop\openpaintshop.sqf", (unitBackpack player),1, false, true, "", ""];
+					_HALV_panitshop_bagaction = player addAction ["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint Backpack</t>", {(_this select 3) call HALV_paintshop_opendialog;}, (unitBackpack player),1, false, true, "", ""];
 				};
 			}else{
 				player removeAction _HALV_panitshop_bagaction;
@@ -299,19 +300,19 @@ while{alive player}do{
 			};
 			if !(Uniform player in ["","U_Test1_uniform","U_Test_uniform"])then{
 				if(_HALV_panitshop_uniformaction< 0)then{
-					_HALV_panitshop_uniformaction = player addAction ["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint Uniform</t>", "addons\paintshop\openpaintshop.sqf", player,1, false, true, "", ""];
+					_HALV_panitshop_uniformaction = player addAction ["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint Uniform</t>", {(_this select 3) call HALV_paintshop_opendialog;}, player,1, false, true, "", ""];
 				};
 			}else{
 				player removeAction _HALV_panitshop_uniformaction;
 				_HALV_panitshop_uniformaction = -1;
 			};
-			_nearvehicles = (nearestObjects [player,["Air","LandVehicle","Ship"],50])-[player];
+			_nearvehicles = (nearestObjects [player,["Air","LandVehicle","Ship"],45])-[player];
 			if !(_nearvehicles isEqualTo _lastsearch)then{{player removeAction _x}forEach _HALV_panitshop_vehicleactions;_HALV_panitshop_vehicleactions = [];};
 			if(count _HALV_panitshop_vehicleactions < 1)then{
 				{
 					if !(_x isKindOf "Wreck_Base")then{
 						_txt = (gettext (configFile >> 'cfgvehicles' >> (typeOf _x) >> 'displayName'));
-						_action = player addAction [format["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint %1</t>",_txt], "addons\paintshop\openpaintshop.sqf", _x,1, false, true, "", ""];
+						_action = player addAction [format["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint %1</t>",_txt], {(_this select 3) call HALV_paintshop_opendialog;}, _x,1, false, true, "", ""];
 						_HALV_panitshop_vehicleactions pushBack _action;
 					};
 				}forEach _nearvehicles;
