@@ -1,5 +1,7 @@
 //set your server name here to avoid problems with ppl logging into anther server with diffrent textures
 _servername = "HalvServer";
+//these are the classnames of buildings that will activate the paintshop
+_paintshopbuildings = ["Land_CarService_F","Land_Repair_center"];
 //add textures and preset colors here
 _textures = [
 //default arma 3 textures

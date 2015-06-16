@@ -234,7 +234,7 @@ sleep 5;
 
 _pname = format["%1_BAGCOLOR",_servername];
 _pcolor = profileNamespace getVariable [_pname,[]];
-if (!(_pcolor isEqualTo []) && Backpack player != "")then{
+if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parachute_02_F","B_I_Parachute_02_F","B_B_Parachute_02_F"]))then{
 	_bag = (unitBackpack player);
 	if(count(getObjectTextures _bag) > 0)then{
 		_defaultsides = [];
@@ -254,8 +254,8 @@ if (!(_pcolor isEqualTo []) && Backpack player != "")then{
 
 _pname = format["%1_UNIFORMCOLOR",_servername];
 _pcolor = profileNamespace getVariable [_pname,[]];
-if (!(_pcolor isEqualTo []) && Uniform player != "")then{
-	if(count(getObjectTextures player) > 0 && !(Uniform player in ["U_Test1_uniform","U_Test_uniform"]))then{
+if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test_uniform"]))then{
+	if(count(getObjectTextures player) > 0)then{
 		_defaultsides = [];
 		{
 			if(_x != "")then{
@@ -282,7 +282,7 @@ _lastsearch = [];
 _sendmessage = true;
 
 while{alive player}do{
-	_nearpaintshops = (nearestObjects [player,["Land_CarService_F","Land_Repair_center"],15]) - [player];
+	_nearpaintshops = (nearestObjects [player,_paintshopbuildings,15]) - [player];
 	_inRange = count _nearpaintshops > 0;
 	if(_inRange)then{
 		if(_sendmessage)then{
@@ -306,7 +306,7 @@ while{alive player}do{
 				player removeAction _HALV_panitshop_uniformaction;
 				_HALV_panitshop_uniformaction = -1;
 			};
-			_nearvehicles = (nearestObjects [player,["Air","LandVehicle","Ship"],45])-[player];
+			_nearvehicles = (nearestObjects [player,["Air","LandVehicle","Ship"],40])-[player];
 			if !(_nearvehicles isEqualTo _lastsearch)then{{player removeAction _x}forEach _HALV_panitshop_vehicleactions;_HALV_panitshop_vehicleactions = [];};
 			if(count _HALV_panitshop_vehicleactions < 1)then{
 				{
