@@ -63,7 +63,7 @@ _textures = [
 	["Black","#(argb,8,8,3)color(0,0,0,0.6)"],
 	["Pink","#(argb,8,8,3)color(1,0.75,0.84,0.2)"],
 	["Tan","#(argb,8,8,3)color(0.8,0.7,0.5,0.2)"],
-//custom textures
+//custom textures (have to be in your mission pbo)
 	["Linux","trader\trader.jpg"],
 	["DK Flag","custom\dkflag.jpg"],
 	["Load Screen","custom\loadscreen.jpg"],
