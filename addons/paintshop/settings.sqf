@@ -1,3 +1,9 @@
+/*
+	Vehicle & backpack Paintshop
+	By Halv
+	
+	Copyright (C) 2015  Halvhjearne > README.md
+*/
 //set your server name here to avoid problems with ppl logging into anther server with diffrent textures
 _servername = "HalvServer";
 //these are the classnames of buildings that will activate the paintshop

@@ -1,3 +1,10 @@
+/*
+	Vehicle & backpack Paintshop
+	By Halv
+	
+	Copyright (C) 2015  Halvhjearne > README.md
+*/
+
 // Control types
 #define CT_MAP_MAIN 101
 #define CT_TREE 12
