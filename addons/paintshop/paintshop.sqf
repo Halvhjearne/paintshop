@@ -10,12 +10,6 @@
 HALV_paintshop_opendialog = {
 	if(isNull _this)exitWith{};
 	HALV_paintshop_vehicletopaint = _this;
-	_typeOf = (typeOf HALV_paintshop_vehicletopaint);
-	_txt = (gettext (configFile >> "cfgvehicles" >> _typeOf >> "displayName"));
-	if(count(getObjectTextures HALV_paintshop_vehicletopaint) < 1 || _typeOf == "ebike_epoch")exitWith{
-		titleText [format["%1 can not be painted ...",_txt],"PLAIN DOWN"];
-		diag_log format["%1 could not be painted ...",_typeOf];
-	};
 	HALV_paintshop_color = [0,0,0,0];
 	HALV_paintshop_defaultsides = HALV_paintshop_vehicletopaint getVariable ["HALV_DEFAULTTEX",[]];
 	if(HALV_paintshop_defaultsides isEqualTo [])then{
@@ -26,6 +20,12 @@ HALV_paintshop_opendialog = {
 			};
 		}forEach getObjectTextures HALV_paintshop_vehicletopaint;
 		HALV_paintshop_vehicletopaint setVariable ["HALV_DEFAULTTEX",HALV_paintshop_defaultsides,true];
+	};
+	_typeOf = typeOf HALV_paintshop_vehicletopaint;
+	_txt = (gettext (configFile >> "cfgvehicles" >> _typeOf >> "displayName"));
+	if(count(HALV_paintshop_defaultsides) < 1)exitWith{
+		titleText [format["%1 can not be painted ...",_txt],"PLAIN DOWN"];
+		diag_log format["%1 could not be painted ...",_typeOf];
 	};
 	HALV_paintshop_sidestopaint = [];
 	{
@@ -249,9 +249,13 @@ if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parac
 		_bag setVariable ["HALV_DEFAULTTEX",_defaultsides,true];
 	}else{
 		_txt = (gettext (configFile >> "cfgvehicles" >> (Backpack player) >> "displayName"));
-		titleText [format["%1 could not be painted ...",_txt],"PLAIN DOWN"];
+		systemChat format["%1 could not be painted ...",_txt];
 		diag_log format["%1 could not be painted ...",Backpack player];
 	};
+}else{
+	_txt = (gettext (configFile >> "cfgvehicles" >> (Backpack player) >> "displayName"));
+	systemChat format["%1 could not be painted ...",_txt];
+	diag_log format["%1 could not be painted ...",Backpack player];
 };
 
 _pname = format["%1_UNIFORMCOLOR",_servername];
@@ -267,13 +271,14 @@ if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test
 		{player setObjectTextureGlobal _x;}forEach _pcolor;
 		player setVariable ["HALV_DEFAULTTEX",_defaultsides,true];
 	}else{
-		[]spawn{
-			sleep 5;
-			_txt = (gettext (configFile >> "cfgvehicles" >> (Uniform player) >> "displayName"));
-			titleText [format["%1 could not be painted ...",_txt],"PLAIN DOWN"];
-		};
+		_txt = (gettext (configFile >> "cfgvehicles" >> (Uniform player) >> "displayName"));
+		systemChat format["%1 could not be painted ...",_txt];
 		diag_log format["%1 could not be painted ...",Uniform player];
 	};
+}else{
+	_txt = (gettext (configFile >> "cfgvehicles" >> (Uniform player) >> "displayName"));
+	systemChat format["%1 could not be painted ...",_txt];
+	diag_log format["%1 could not be painted ...",Uniform player];
 };
 
 _HALV_panitshop_bagaction = -1;
