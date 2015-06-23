@@ -252,10 +252,6 @@ if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parac
 		systemChat format["%1 could not be painted ...",_txt];
 		diag_log format["%1 could not be painted ...",Backpack player];
 	};
-}else{
-	_txt = (gettext (configFile >> "cfgvehicles" >> (Backpack player) >> "displayName"));
-	systemChat format["%1 could not be painted ...",_txt];
-	diag_log format["%1 could not be painted ...",Backpack player];
 };
 
 _pname = format["%1_UNIFORMCOLOR",_servername];
@@ -275,10 +271,6 @@ if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test
 		systemChat format["%1 could not be painted ...",_txt];
 		diag_log format["%1 could not be painted ...",Uniform player];
 	};
-}else{
-	_txt = (gettext (configFile >> "cfgvehicles" >> (Uniform player) >> "displayName"));
-	systemChat format["%1 could not be painted ...",_txt];
-	diag_log format["%1 could not be painted ...",Uniform player];
 };
 
 _HALV_panitshop_bagaction = -1;
@@ -289,7 +281,7 @@ _lastsearch = [];
 _sendmessage = true;
 
 while{alive player}do{
-	_nearpaintshops = (nearestObjects [player,_paintshopbuildings,15]) - [player];
+	_nearpaintshops = (nearestObjects [player,_paintshopbuildings,15])-[player];
 	_inRange = count _nearpaintshops > 0;
 	if(_inRange)then{
 		if(_sendmessage)then{
@@ -313,7 +305,7 @@ while{alive player}do{
 				player removeAction _HALV_panitshop_uniformaction;
 				_HALV_panitshop_uniformaction = -1;
 			};
-			_nearvehicles = (nearestObjects [player,["Air","LandVehicle","Ship"],40])-[player];
+			_nearvehicles = (player nearEntities [["Air","LandVehicle","Ship"],40])-[player];
 			if !(_nearvehicles isEqualTo _lastsearch)then{{player removeAction _x}forEach _HALV_panitshop_vehicleactions;_HALV_panitshop_vehicleactions = [];};
 			if(count _HALV_panitshop_vehicleactions < 1)then{
 				{
