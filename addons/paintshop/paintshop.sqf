@@ -15,7 +15,7 @@ HALV_paintshop_opendialog = {
 	if(HALV_paintshop_defaultsides isEqualTo [])then{
 		HALV_paintshop_defaultsides = [];
 		{
-			if(_x != "")then{
+			if !(_x isEqualTo "")then{
 				HALV_paintshop_defaultsides pushBack [_forEachIndex,_x];
 			};
 		}forEach getObjectTextures HALV_paintshop_vehicletopaint;
@@ -29,7 +29,7 @@ HALV_paintshop_opendialog = {
 	};
 	HALV_paintshop_sidestopaint = [];
 	{
-		if(_x != "")then{
+		if !(_x isEqualTo "")then{
 			HALV_paintshop_sidestopaint pushBack [_forEachIndex,_x];
 		};
 	}forEach getObjectTextures HALV_paintshop_vehicletopaint;
@@ -58,7 +58,7 @@ HALV_paintshop_opendialog = {
 
 HALV_paintshop_checkchanged = {
 	disableSerialization;
-	if(_this select 2 == 1)then{
+	if((_this select 2) isEqualTo 1)then{
 		{_ctrl = (findDisplay 6666) displayCtrl _x;_ctrl ctrlShow false;}forEach [6667,6668,6681,6682,6683,6684];
 		{_ctrl = (findDisplay 6666) displayCtrl _x;_ctrl ctrlShow true;}forEach [6669,6670,6671,6672,6675,6676];
 		call HALV_paintshop_filllistbox;
@@ -113,7 +113,7 @@ HALV_paintshop_filllistbox = {
 HALV_paintshop_slidingcolor = {
 	_ctrl = _this select 0;
 	_val = _this select 1;
-	if(_val != sliderPosition _ctrl)exitWith{};
+	if !(_val isEqualTo (sliderPosition _ctrl))exitWith{};
 	switch(str _ctrl)do{
 		case "Control #6681":{HALV_paintshop_color set [0,_val];};
 		case "Control #6682":{HALV_paintshop_color set [1,_val];};
@@ -131,7 +131,7 @@ HALV_paintshop_selected = {
 	_alltex = [];
 	{
 		_tex = _x select 1;
-		if(typeName (_x select 1) == "ARRAY")then{
+		if((typeName (_x select 1)) isEqualTo (typeName []))then{
 			_tex = format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3];
 			HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3]];
 		};
@@ -147,7 +147,7 @@ HALV_paintshop_selected = {
 			profileNamespace setVariable [_pname,_alltex];
 		};
 	};
-	if(HALV_paintshop_vehicletopaint == player)then{
+	if(HALV_paintshop_vehicletopaint isEqualTo player)then{
 		_pname = format["%1_UNIFORMCOLOR",_servername];
 		if(_alltex isEqualTo HALV_paintshop_defaultsides)then{
 			profileNamespace setVariable [_pname,nil];
@@ -163,7 +163,7 @@ HALV_paintshop_addtolist = {
 	_ctrl = (findDisplay 6666) displayCtrl 6674;
 	_tex = if (ctrlChecked _ctrl)then{HALV_paintshop_texture}else{format["#(argb,8,8,3)color(%1,%2,%3,%4)",HALV_paintshop_color select 0,HALV_paintshop_color select 1,HALV_paintshop_color select 2,HALV_paintshop_color select 3]};
 	{
-		if(HALV_paintshop_currentside == _x select 0)exitWith{
+		if(HALV_paintshop_currentside isEqualTo (_x select 0))exitWith{
 			HALV_paintshop_sidestopaint deleteAt _forEachIndex;
 		};
 	}forEach HALV_paintshop_sidestopaint;
@@ -241,7 +241,7 @@ if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parac
 	if(count(getObjectTextures _bag) > 0)then{
 		_defaultsides = [];
 		{
-			if(_x != "")then{
+			if !(_x isEqualTo "")then{
 				_defaultsides pushBack [_forEachIndex,_x];
 			};
 		}forEach getObjectTextures _bag;
@@ -260,7 +260,7 @@ if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test
 	if(count(getObjectTextures player) > 0)then{
 		_defaultsides = [];
 		{
-			if(_x != "")then{
+			if !(_x isEqualTo "")then{
 				_defaultsides pushBack [_forEachIndex,_x];
 			};
 		}forEach getObjectTextures player;
@@ -288,7 +288,7 @@ while{alive player}do{
 			player sideChat "-- Paint Shop --";
 			_sendmessage = false;
 		};
-		if(player == vehicle player)then{
+		if(player isEqualTo vehicle player)then{
 			if !(Backpack player in ["","B_Parachute","B_O_Parachute_02_F","B_I_Parachute_02_F","B_B_Parachute_02_F"])then{
 				if(_HALV_panitshop_bagaction< 0)then{
 					_HALV_panitshop_bagaction = player addAction ["<img size='1.5'image='\a3\Ui_f\data\map\VehicleIcons\iconmanmedic_ca.paa'/> <t color='#0096ff'>Paint Backpack</t>", {(_this select 3) call HALV_paintshop_opendialog;}, (unitBackpack player),1, false, true, "", ""];
