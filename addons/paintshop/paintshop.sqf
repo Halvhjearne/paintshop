@@ -131,7 +131,7 @@ HALV_paintshop_selected = {
 	_alltex = [];
 	{
 		_tex = _x select 1;
-		if((typeName (_x select 1)) isEqualTo (typeName []))then{
+		if((typeName (_x select 1)) isEqualTo "ARRAY")then{
 			_tex = format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3];
 			HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3]];
 		};
