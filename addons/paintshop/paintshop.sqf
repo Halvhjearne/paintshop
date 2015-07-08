@@ -10,7 +10,7 @@
 HALV_paintshop_opendialog = {
 	if(isNull _this)exitWith{};
 	HALV_paintshop_vehicletopaint = _this;
-	HALV_paintshop_color = [0,0,0,0];
+	HALV_paintshop_color = [0,0,0,0.6];
 	HALV_paintshop_defaultsides = HALV_paintshop_vehicletopaint getVariable ["HALV_DEFAULTTEX",[]];
 	if(HALV_paintshop_defaultsides isEqualTo [])then{
 		HALV_paintshop_defaultsides = [];
@@ -40,6 +40,7 @@ HALV_paintshop_opendialog = {
 	_ctrl = (findDisplay 6666) displayCtrl 6678;_ctrl ctrlEnable false;
 	{_ctrl = (findDisplay 6666) displayCtrl _x;_ctrl ctrlShow false;}forEach [6669,6670,6671,6672,6675,6676];
 	{_ctrl = (findDisplay 6666) displayCtrl _x;_ctrl sliderSetRange [0,1];_ctrl sliderSetSpeed [0.01,0.03];}forEach [6681,6682,6683,6684];
+	_ctrl sliderSetPosition 0.6;
 	_ctrl = (findDisplay 6666) displayCtrl 6678;
 	_ctrl ctrlSetText _txt;
 	_ctrl = (findDisplay 6666) displayCtrl 6673;
