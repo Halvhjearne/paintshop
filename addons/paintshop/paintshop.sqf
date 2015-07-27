@@ -115,12 +115,13 @@ HALV_paintshop_slidingcolor = {
 	_ctrl = _this select 0;
 	_val = _this select 1;
 	if !(_val isEqualTo (sliderPosition _ctrl))exitWith{};
-	switch(str _ctrl)do{
-		case "Control #6681":{HALV_paintshop_color set [0,_val];};
-		case "Control #6682":{HALV_paintshop_color set [1,_val];};
-		case "Control #6683":{HALV_paintshop_color set [2,_val];};
-		case "Control #6684":{HALV_paintshop_color set [3,_val];};
+	_arr = switch(str _ctrl)do{
+		case "Control #6681":{[0,_val];};
+		case "Control #6682":{[1,_val];};
+		case "Control #6683":{[2,_val];};
+		case "Control #6684":{[3,_val];};
 	};
+	HALV_paintshop_color set _arr;
 	HALV_paintshop_vehicletopaint setObjectTexture [HALV_paintshop_currentside,format["#(argb,8,8,3)color(%1,%2,%3,%4)",HALV_paintshop_color select 0,HALV_paintshop_color select 1,HALV_paintshop_color select 2,HALV_paintshop_color select 3]];
 	hintSilent str(HALV_paintshop_color);
 };
@@ -230,13 +231,10 @@ HALV_paintshop_switchside = {
 	_ctrl lbSetCurSel HALV_paintshop_currentside;
 };
 
-waitUntil {!isNull (findDisplay 46)};
-waitUntil {!dialog};
+waitUntil{!isNull (findDisplay 46) && !dialog};
 
-sleep 5;
-
-_pname = format["%1_BAGCOLOR",_servername];
-_pcolor = profileNamespace getVariable [_pname,[]];
+_sname = format["%1_BAGCOLOR",_servername];
+_pcolor = profileNamespace getVariable [_sname,[]];
 if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parachute_02_F","B_I_Parachute_02_F","B_B_Parachute_02_F"]))then{
 	_bag = (unitBackpack player);
 	if(count(getObjectTextures _bag) > 0)then{
@@ -248,6 +246,10 @@ if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parac
 		}forEach getObjectTextures _bag;
 		{_bag setObjectTextureGlobal _x;}forEach _pcolor;
 		_bag setVariable ["HALV_DEFAULTTEX",_defaultsides,true];
+		if("" in (getObjectTextures _bag))then{
+			{_bag setObjectTextureGlobal _x;}forEach _defaultsides;
+			profileNamespace setVariable [_sname,nil];
+		};
 	}else{
 		_txt = (gettext (configFile >> "cfgvehicles" >> (Backpack player) >> "displayName"));
 		systemChat format["%1 could not be painted ...",_txt];
@@ -255,8 +257,8 @@ if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parac
 	};
 };
 
-_pname = format["%1_UNIFORMCOLOR",_servername];
-_pcolor = profileNamespace getVariable [_pname,[]];
+_sname = format["%1_UNIFORMCOLOR",_servername];
+_pcolor = profileNamespace getVariable [_sname,[]];
 if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test_uniform"]))then{
 	if(count(getObjectTextures player) > 0)then{
 		_defaultsides = [];
@@ -267,6 +269,10 @@ if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test
 		}forEach getObjectTextures player;
 		{player setObjectTextureGlobal _x;}forEach _pcolor;
 		player setVariable ["HALV_DEFAULTTEX",_defaultsides,true];
+		if("" in (getObjectTextures player))then{
+			{player setObjectTextureGlobal _x;}forEach _defaultsides;
+			profileNamespace setVariable [_sname,nil];
+		};
 	}else{
 		_txt = (gettext (configFile >> "cfgvehicles" >> (Uniform player) >> "displayName"));
 		systemChat format["%1 could not be painted ...",_txt];
