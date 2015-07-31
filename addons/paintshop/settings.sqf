@@ -4,9 +4,6 @@
 	
 	Copyright (C) 2015  Halvhjearne > README.md
 */
-//set your server name here to avoid problems with ppl logging into anther server with diffrent textures
-//use one string name, no spaces or special chars
-_servername = "HalvServer";
 //these are the classnames of buildings that will activate the paintshop
 _paintshopbuildings = ["Land_CarService_F","Land_Repair_center"];
 //add textures and preset colors here
