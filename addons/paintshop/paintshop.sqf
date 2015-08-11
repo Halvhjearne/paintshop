@@ -13,12 +13,7 @@ HALV_paintshop_opendialog = {
 	HALV_paintshop_color = [0,0,0,0.6];
 	HALV_paintshop_defaultsides = HALV_paintshop_vehicletopaint getVariable ["VEHICLE_DEFAULTTEX",[]];
 	if(HALV_paintshop_defaultsides isEqualTo [])then{
-		HALV_paintshop_defaultsides = [];
-		{
-			if !(_x isEqualTo "")then{
-				HALV_paintshop_defaultsides pushBack [_forEachIndex,_x];
-			};
-		}forEach getObjectTextures HALV_paintshop_vehicletopaint;
+		HALV_paintshop_defaultsides = getObjectTextures HALV_paintshop_vehicletopaint;
 		HALV_paintshop_vehicletopaint setVariable ["VEHICLE_DEFAULTTEX",HALV_paintshop_defaultsides,true];
 	};
 	_typeOf = typeOf HALV_paintshop_vehicletopaint;
@@ -29,12 +24,12 @@ HALV_paintshop_opendialog = {
 	};
 	HALV_paintshop_sidestopaint = [];
 	{
-		if !(_x isEqualTo "")then{
+		if (_x != "")then{
 			HALV_paintshop_sidestopaint pushBack [_forEachIndex,_x];
 		};
 	}forEach getObjectTextures HALV_paintshop_vehicletopaint;
 	HALV_paintshop_currentside = 0;
-	HALV_paintshop_texture = (HALV_paintshop_defaultsides select 0)select 1;
+	HALV_paintshop_texture = HALV_paintshop_defaultsides select 0;
 	createDialog "HALV_painshop_dialog";
 	disableSerialization;
 	_ctrl = (findDisplay 6666) displayCtrl 6678;_ctrl ctrlEnable false;
@@ -92,13 +87,14 @@ HALV_paintshop_filllistbox = {
 	};
 	{
 		_fi = _forEachIndex;
-		_color = _x select 1;
-		_lb = _ctrl lbAdd format["Default: %1",_fi];
-		_ctrl lbSetData [_lb,_color];
-		_ctrl lbSetPicture [_lb,_color];
-		_ctrl lbSetPictureColor [_lb, [1, 1, 1, 1]];
-		_ctrl lbSetPictureColorSelected [_lb, [1, 1, 1, 1]];
-		_ctrl lbSetTooltip [_lb,"Click to Test Texture"];
+		if(_x != "")then{
+			_lb = _ctrl lbAdd format["Default: Side %1",_fi];
+			_ctrl lbSetData [_lb,_x];
+			_ctrl lbSetPicture [_lb,_x];
+			_ctrl lbSetPictureColor [_lb, [1, 1, 1, 1]];
+			_ctrl lbSetPictureColorSelected [_lb, [1, 1, 1, 1]];
+			_ctrl lbSetTooltip [_lb,"Click to Test Texture"];
+		};
 	}forEach HALV_paintshop_defaultsides;
 	{
 		_lb = _ctrl lbAdd (_x select 0);
@@ -130,31 +126,40 @@ HALV_paintshop_selected = {
 	#include "settings.sqf";
 	closeDialog 0;
 	diag_log str['HALVSETTEX:',HALV_paintshop_sidestopaint];
-	_alltex = [];
+//	_alltex = [];
 	{
 		_tex = _x select 1;
-		if((typeName (_x select 1)) isEqualTo "ARRAY")then{
+		if(typeName (_x select 1) == "ARRAY")then{
 			_tex = format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3];
 			HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3]];
 		};
 		HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,_tex];
-		_alltex pushBack [_x select 0,_tex];
+//		_alltex pushBack [_x select 0,_tex];
 	}forEach HALV_paintshop_sidestopaint;
-	_alltex = [_alltex,[],{_x select 0},"ASCEND"] call BIS_fnc_sortBy;
-	if(HALV_paintshop_vehicletopaint isKindOf "bag_base")then{
-		if(_alltex isEqualTo HALV_paintshop_defaultsides)then{
-			profileNamespace setVariable ["HALV_BAGCOLOR",nil];
-			HALV_paintshop_vehicletopaint setVariable ["VEHICLE_DEFAULTTEX",nil];
-		}else{
-			profileNamespace setVariable ["HALV_BAGCOLOR",_alltex];
+//	_alltex = [_alltex,[],{_x select 0},"ASCEND"] call BIS_fnc_sortBy;
+	_alltex = getObjectTextures HALV_paintshop_vehicletopaint;
+	switch(true)do{
+		case (HALV_paintshop_vehicletopaint isKindOf "bag_base"):{
+			if(_alltex isEqualTo HALV_paintshop_defaultsides)then{
+				profileNamespace setVariable ["HALV_BAGCOLOR",nil];
+				HALV_paintshop_vehicletopaint setVariable ["VEHICLE_DEFAULTTEX",nil];
+			}else{
+				profileNamespace setVariable ["HALV_BAGCOLOR",_alltex];
+			};
 		};
-	};
-	if(HALV_paintshop_vehicletopaint isEqualTo player)then{
-		if(_alltex isEqualTo HALV_paintshop_defaultsides)then{
-			profileNamespace setVariable ["HALV_UNIFORMCOLOR",nil];
-			HALV_paintshop_vehicletopaint setVariable ["VEHICLE_DEFAULTTEX",nil];
-		}else{
-			profileNamespace setVariable ["HALV_UNIFORMCOLOR",_alltex];
+		case (HALV_paintshop_vehicletopaint isEqualTo player):{
+			if(_alltex isEqualTo HALV_paintshop_defaultsides)then{
+				profileNamespace setVariable ["HALV_UNIFORMCOLOR",nil];
+				HALV_paintshop_vehicletopaint setVariable ["VEHICLE_DEFAULTTEX",nil];
+			}else{
+				profileNamespace setVariable ["HALV_UNIFORMCOLOR",_alltex];
+			};
+		};
+		default{
+			if !(isPlayer HALV_paintshop_vehicletopaint)then{
+				HALV_vehsavetex = HALV_paintshop_vehicletopaint;
+				publicVariableServer "HALV_vehsavetex";
+			};
 		};
 	};
 };
@@ -236,18 +241,19 @@ waitUntil{!isNil "Epoch_my_GroupUID"};
 _pcolor = profileNamespace getVariable ["HALV_BAGCOLOR",[]];
 if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parachute_02_F","B_I_Parachute_02_F","B_B_Parachute_02_F"]))then{
 	_bag = (unitBackpack player);
-	if(count(getObjectTextures _bag) > 0)then{
-		_defaultsides = [];
-		{
-			if !(_x isEqualTo "")then{
-				_defaultsides pushBack [_forEachIndex,_x];
-			};
-		}forEach getObjectTextures _bag;
-		{_bag setObjectTextureGlobal _x;}forEach _pcolor;
-		_bag setVariable ["VEHICLE_DEFAULTTEX",_defaultsides,true];
+	_defaultsides = getObjectTextures _bag;
+	if(count _defaultsides > 0)then{
+		if(typeName(_pcolor select 0) == "ARRAY")then{
+			{_bag setObjectTextureGlobal _x;}forEach _pcolor;
+			profileNamespace setVariable ["HALV_BAGCOLOR",(getObjectTextures _bag)];
+		}else{
+			{_bag setObjectTextureGlobal [_forEachIndex,_x];}forEach _pcolor;
+		};
 		if("" in (getObjectTextures _bag))then{
-			{_bag setObjectTextureGlobal _x;}forEach _defaultsides;
+			{_bag setObjectTextureGlobal [_forEachIndex,_x];}forEach _defaultsides;
 			profileNamespace setVariable ["HALV_BAGCOLOR",nil];
+		}else{
+			_bag setVariable ["VEHICLE_DEFAULTTEX",_defaultsides,true];
 		};
 	}else{
 		_txt = (gettext (configFile >> "cfgvehicles" >> (Backpack player) >> "displayName"));
@@ -258,18 +264,19 @@ if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parac
 
 _pcolor = profileNamespace getVariable ["HALV_UNIFORMCOLOR",[]];
 if (!(_pcolor isEqualTo []) && !(Uniform player in ["","U_Test1_uniform","U_Test_uniform"]))then{
-	if(count(getObjectTextures player) > 0)then{
-		_defaultsides = [];
-		{
-			if !(_x isEqualTo "")then{
-				_defaultsides pushBack [_forEachIndex,_x];
-			};
-		}forEach getObjectTextures player;
-		{player setObjectTextureGlobal _x;}forEach _pcolor;
-		player setVariable ["VEHICLE_DEFAULTTEX",_defaultsides,true];
+	_defaultsides = getObjectTextures player;
+	if(count _defaultsides > 0)then{
+		if(typeName(_pcolor select 0) == "ARRAY")then{
+			{player setObjectTextureGlobal _x;}forEach _pcolor;
+			profileNamespace setVariable ["HALV_UNIFORMCOLOR",(getObjectTextures player)];
+		}else{
+			{player setObjectTextureGlobal [_forEachIndex,_x];}forEach _pcolor;
+		};
 		if("" in (getObjectTextures player))then{
-			{player setObjectTextureGlobal _x;}forEach _defaultsides;
+			{player setObjectTextureGlobal [_forEachIndex,_x];}forEach _defaultsides;
 			profileNamespace setVariable ["HALV_UNIFORMCOLOR",nil];
+		}else{
+			player setVariable ["VEHICLE_DEFAULTTEX",_defaultsides,true];
 		};
 	}else{
 		_txt = (gettext (configFile >> "cfgvehicles" >> (Uniform player) >> "displayName"));
