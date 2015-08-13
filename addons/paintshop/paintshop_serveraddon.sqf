@@ -2,7 +2,8 @@ if(isServer)then{
 
 	HALV_server_savetextures = {
 		private ["_vehicle","_textures","_deftex","_savearr","_vehSlot","_vehHiveKey"];
-		_vehicle = _this;
+		_player = _this select 0;
+		_vehicle = _this select 1;
 		if (!isNull _vehicle) then {
 			_vehSlot = _vehicle getVariable["VEHICLE_SLOT", "ABORT"];
 			if (_vehSlot != "ABORT") then {
@@ -26,6 +27,8 @@ if(isServer)then{
 				_savearr = [_textures,_deftex];
 				["VehicleCustomTex",_vehHiveKey,_savearr]call EPOCH_server_hiveSET;
 				diag_log str["VehicleCustomTex save:",_vehHiveKey, EPOCH_expiresVehicle,_savearr];
+				HalvPV_player_message = ["titleText", ["[SERVER]:\nVehicle paintjob saved to database!", "PLAIN"]];
+				(owner _player) publicVariableClient "HalvPV_player_message";
 			};
 		};
 	};
@@ -34,23 +37,11 @@ if(isServer)then{
 		_txtOUT = _this;
 		_txtarr = toArray _txtOUT;
 		{
-			if(92 isEqualTo _x)then{
+			if(_x isEqualTo 92)then{
 				_txtarr set [_forEachIndex,32];
-				_txtOUT = toString _txtarr;
 			};
 		}forEach _txtarr;
-		_txtOUT
-	};
-
-	HALV_fnc_addbackslash = {
-		_txtOUT = _this;
-		_txtarr = toArray _txtOUT;
-		{
-			if(32 isEqualTo _x)then{
-				_txtarr set [_forEachIndex,92];
-				_txtOUT = toString _txtarr;
-			};
-		}forEach _txtarr;
+		_txtOUT = toString _txtarr;
 		_txtOUT
 	};
 

@@ -126,7 +126,6 @@ HALV_paintshop_selected = {
 	#include "settings.sqf";
 	closeDialog 0;
 	diag_log str['HALVSETTEX:',HALV_paintshop_sidestopaint];
-//	_alltex = [];
 	{
 		_tex = _x select 1;
 		if(typeName (_x select 1) == "ARRAY")then{
@@ -134,9 +133,7 @@ HALV_paintshop_selected = {
 			HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3]];
 		};
 		HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,_tex];
-//		_alltex pushBack [_x select 0,_tex];
 	}forEach HALV_paintshop_sidestopaint;
-//	_alltex = [_alltex,[],{_x select 0},"ASCEND"] call BIS_fnc_sortBy;
 	_alltex = getObjectTextures HALV_paintshop_vehicletopaint;
 	switch(true)do{
 		case (HALV_paintshop_vehicletopaint isKindOf "bag_base"):{
@@ -156,8 +153,8 @@ HALV_paintshop_selected = {
 			};
 		};
 		default{
-			if !(isPlayer HALV_paintshop_vehicletopaint)then{
-				HALV_vehsavetex = HALV_paintshop_vehicletopaint;
+			if (HALV_paintshop_vehicletopaint getVariable ["VEHICLE_SLOT","ABORT"] != "ABORT" && !(isPlayer HALV_paintshop_vehicletopaint))then{
+				HALV_vehsavetex = [player,HALV_paintshop_vehicletopaint];
 				publicVariableServer "HALV_vehsavetex";
 			};
 		};
