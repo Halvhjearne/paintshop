@@ -24,9 +24,7 @@ HALV_paintshop_opendialog = {
 	};
 	HALV_paintshop_sidestopaint = [];
 	{
-		if (_x != "")then{
-			HALV_paintshop_sidestopaint pushBack [_forEachIndex,_x];
-		};
+		HALV_paintshop_sidestopaint pushBack [_forEachIndex,_x];
 	}forEach getObjectTextures HALV_paintshop_vehicletopaint;
 	HALV_paintshop_currentside = 0;
 	HALV_paintshop_texture = HALV_paintshop_defaultsides select 0;
@@ -87,14 +85,12 @@ HALV_paintshop_filllistbox = {
 	};
 	{
 		_fi = _forEachIndex;
-		if(_x != "")then{
-			_lb = _ctrl lbAdd format["Default: Side %1",_fi];
-			_ctrl lbSetData [_lb,_x];
-			_ctrl lbSetPicture [_lb,_x];
-			_ctrl lbSetPictureColor [_lb, [1, 1, 1, 1]];
-			_ctrl lbSetPictureColorSelected [_lb, [1, 1, 1, 1]];
-			_ctrl lbSetTooltip [_lb,"Click to Test Texture"];
-		};
+		_lb = _ctrl lbAdd format["Default: Side %1",_fi];
+		_ctrl lbSetData [_lb,_x];
+		_ctrl lbSetPicture [_lb,_x];
+		_ctrl lbSetPictureColor [_lb, [1, 1, 1, 1]];
+		_ctrl lbSetPictureColorSelected [_lb, [1, 1, 1, 1]];
+		_ctrl lbSetTooltip [_lb,"Click to Test Texture"];
 	}forEach HALV_paintshop_defaultsides;
 	{
 		_lb = _ctrl lbAdd (_x select 0);
@@ -132,6 +128,9 @@ HALV_paintshop_selected = {
 			_tex = format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3];
 			HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,format["#(argb,8,8,3)color(%1,%2,%3,%4)",(_x select 1) select 0,(_x select 1) select 1,(_x select 1) select 2,(_x select 1) select 3]];
 		};
+		if(_tex == "")then{
+			_tex = HALV_paintshop_defaultsides select (_x select 0);
+		};
 		HALV_paintshop_vehicletopaint setObjectTextureGlobal [_x select 0,_tex];
 	}forEach HALV_paintshop_sidestopaint;
 	_alltex = getObjectTextures HALV_paintshop_vehicletopaint;
@@ -153,9 +152,13 @@ HALV_paintshop_selected = {
 			};
 		};
 		default{
-			if (HALV_paintshop_vehicletopaint getVariable ["VEHICLE_SLOT","ABORT"] != "ABORT" && !(isPlayer HALV_paintshop_vehicletopaint))then{
-				HALV_vehsavetex = [player,HALV_paintshop_vehicletopaint];
-				publicVariableServer "HALV_vehsavetex";
+			if (HALV_paintshop_vehicletopaint getVariable ["VEHICLE_SLOT","ABORT"] != "ABORT")then{
+				if !(isPlayer HALV_paintshop_vehicletopaint)then{
+					HALV_vehsavetex = [player,HALV_paintshop_vehicletopaint];
+					publicVariableServer "HALV_vehsavetex";
+				}else{
+					titleText ["[PAINTJOB NOT SAVED]:\nThere was a player in the vehicle!","PLAIN DOWN"];
+				};
 			};
 		};
 	};
@@ -207,9 +210,9 @@ HALV_paintshop_onLBDblClick2 = {
 	_ctrl = _this select 0;
 	_lb = _this select 1;
 	_value = _ctrl lbValue _lb;
-	HALV_paintshop_vehicletopaint setObjectTexture (HALV_paintshop_defaultsides select _value);
-	HALV_paintshop_sidestopaint set [_value,(HALV_paintshop_defaultsides select _value)];
-	diag_log str['HALVREMTEX:',[_value,(HALV_paintshop_defaultsides select _value)]];
+	HALV_paintshop_vehicletopaint setObjectTexture [HALV_paintshop_currentside,(HALV_paintshop_defaultsides select _value)];
+	HALV_paintshop_sidestopaint set [_value,[HALV_paintshop_currentside,(HALV_paintshop_defaultsides select _value)]];
+	diag_log str['HALVREMTEX:',[_value,[HALV_paintshop_currentside,(HALV_paintshop_defaultsides select _value)]]];
 	lbClear _ctrl;
 	{
 		_text = format["Side %1",_x select 0];
@@ -232,8 +235,9 @@ HALV_paintshop_switchside = {
 	_ctrl lbSetCurSel HALV_paintshop_currentside;
 };
 
-waitUntil{!isNull (findDisplay 46) && !dialog};
-waitUntil{!isNil "Epoch_my_GroupUID"};
+waitUntil {!isNuLL(uiNameSpace getVariable ["EPOCH_loadingScreen",displayNull])};
+waitUntil {isNuLL(uiNameSpace getVariable ["EPOCH_loadingScreen",displayNull])};
+waitUntil{!isNull (findDisplay 46) && !dialog && typeOf player != "VirtualMan_EPOCH"};
 
 _pcolor = profileNamespace getVariable ["HALV_BAGCOLOR",[]];
 if (!(_pcolor isEqualTo []) && !(Backpack player in ["","B_Parachute","B_O_Parachute_02_F","B_I_Parachute_02_F","B_B_Parachute_02_F"]))then{
