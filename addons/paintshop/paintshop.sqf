@@ -154,10 +154,12 @@ HALV_paintshop_selected = {
 		default{
 			if (HALV_paintshop_vehicletopaint getVariable ["VEHICLE_SLOT","ABORT"] != "ABORT")then{
 				if !(isPlayer HALV_paintshop_vehicletopaint)then{
+/*
 					HALV_vehsavetex = [player,HALV_paintshop_vehicletopaint];
 					publicVariableServer "HALV_vehsavetex";
+*/
 				}else{
-					titleText ["[SERVER]:\n*** VEHICLE PAINTJOB NOT SAVED! ***\nThere was a player in the vehicle!","PLAIN DOWN"];
+//					titleText ["[SERVER]:\n*** VEHICLE PAINTJOB NOT SAVED! ***\nThere was a player in the vehicle!","PLAIN DOWN"];
 				};
 			};
 		};
