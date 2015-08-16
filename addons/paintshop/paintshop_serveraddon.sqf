@@ -1,3 +1,10 @@
+/*
+	Vehicle, uniform & backpack Paintshop
+	By Halv
+	
+	Copyright (C) 2015  Halvhjearne > README.md
+*/
+
 if(isServer)then{
 /*
 

@@ -1,5 +1,5 @@
 /*
-	Vehicle & backpack Paintshop
+	Vehicle, uniform & backpack Paintshop
 	By Halv
 	
 	Copyright (C) 2015  Halvhjearne > README.md
