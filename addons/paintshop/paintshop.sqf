@@ -157,7 +157,7 @@ HALV_paintshop_selected = {
 					HALV_vehsavetex = [player,HALV_paintshop_vehicletopaint];
 					publicVariableServer "HALV_vehsavetex";
 				}else{
-					titleText ["[PAINTJOB NOT SAVED]:\nThere was a player in the vehicle!","PLAIN DOWN"];
+					titleText ["[SERVER]:\n*** VEHICLE PAINTJOB NOT SAVED! ***\nThere was a player in the vehicle!","PLAIN DOWN"];
 				};
 			};
 		};

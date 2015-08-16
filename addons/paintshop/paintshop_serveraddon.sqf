@@ -1,4 +1,5 @@
 if(isServer)then{
+/*
 
 	HALV_server_savetextures = {
 		private ["_vehicle","_textures","_deftex","_savearr","_vehSlot","_vehHiveKey"];
@@ -27,7 +28,7 @@ if(isServer)then{
 				_savearr = [_textures,_deftex];
 				["VehicleCustomTex",_vehHiveKey,_savearr]call EPOCH_server_hiveSET;
 				diag_log str["VehicleCustomTex save:",_vehHiveKey, EPOCH_expiresVehicle,_savearr];
-				HalvPV_player_message = ["titleText", ["[SERVER]:\nVehicle paintjob saved to database!", "PLAIN"]];
+				HalvPV_player_message = ["titleText", ["[SERVER]:\n*** VEHICLE PAINTJOB SAVED! ***", "PLAIN DOWN"]];
 				(owner _player) publicVariableClient "HalvPV_player_message";
 			};
 		};
@@ -45,6 +46,19 @@ if(isServer)then{
 		_txtOUT
 	};
 
+	HALV_fnc_addbackslash = {
+		_txtOUT = _this;
+		_txtarr = toArray _txtOUT;
+		{
+			if(_x isEqualTo 32)then{
+				_txtarr set [_forEachIndex,92];
+			};
+		}forEach _txtarr;
+		_txtOUT = toString _txtarr;
+		_txtOUT
+	};
+
 	"HALV_vehsavetex" addPublicVariableEventHandler {(_this select 1) call HALV_server_savetextures;};
 
+*/
 };
